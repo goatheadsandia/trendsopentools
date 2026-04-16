@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TReNDS Center — Open Source Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a18;
+      --ink-mid: #4a4a46;
+      --ink-light: #8a8a84;
+      --paper: #f7f5f0;
+      --rule: rgba(26,26,24,0.15);
+      --rule-light: rgba(26,26,24,0.07);
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .header h1 {
+      font-size: 2.1rem;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.02em;
+    }
+
+    .header-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-mid);
+      text-align: right;
+      line-height: 1.7;
+      flex-shrink: 0;
+    }
+
+    .subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 11.5px;
+      color: var(--ink-light);
+      letter-spacing: 0.04em;
+      margin-bottom: 3rem;
+    }
+
+    /* ── PROJECT ROWS ── */
+    .projects {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      border-top: 0.5px solid var(--rule);
+      padding: 2rem 0;
+    }
+
+    .project:last-child {
+      border-bottom: 0.5px solid var(--rule);
+    }
+
+    /* ── THUMBNAIL ── */
+    /*
+      - Use 480×300px or larger images for crisp rendering
+    */
+    .project-thumb {
+      width: 240px;
+      height: 152px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #111;
+      flex-shrink: 0;
+    }
+
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+      display: block;
+    }
+
+    .project-thumb svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ── PROJECT BODY ── */
+    .project-body {
+      padding: 0 0 0 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .project-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--ink-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .project-title {
+      font-size: 1.45rem;
+      font-weight: 400;
+      margin-bottom: 0.55rem;
+      line-height: 1.2;
+    }
+
+    .project-title a {
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .project-title a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .project-desc {
+      font-size: 0.97rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin-bottom: 0.9rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .project-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-mid);
+      text-decoration: none;
+      border-bottom: 0.5px solid rgba(26,26,24,0.3);
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .project-links a:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 0.5px solid var(--rule);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-light);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .project {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .project-thumb {
+        width: 100%;
+        height: 180px;
+      }
+      .project-body {
+        padding: 0;
+      }
+      .header {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .header-meta {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>TReNDS Center</h1>
+    <img src="https://trendscenter.org/wp-content/uploads/2021/02/TReNDS_logo.png" alt="TReNDS logo" style="height:64px; width:auto;">
+  </div>
+  <div class="subtitle">open-source tools for neuroimaging and machine learning</div>
+
+  <div class="projects">
+
+    <!-- ═══════════════════════════════════════════════════
+         PROJECT 1 — brainchop
+    ════════════════════════════════════════════════════ -->
+    <div class="project">
+      <div class="project-thumb">
+        <img src="https://s3.amazonaws.com/production.scholastica/public/attachments/76e0dc3e-8ac0-4d02-ad26-51504e1887a1/large/figure_1._examples_for_each_of_the_three_model_families_currently_supported_by_brainchop.png" alt="brainchop">
+          <rect width="240" height="152" fill="#0a0a1a"/>
+          <ellipse cx="120" cy="76" rx="78" ry="56" fill="none" stroke="#1a3a6a" stroke-width="1"/>
+          <ellipse cx="120" cy="76" rx="60" ry="42" fill="none" stroke="#1e4d8c" stroke-width="0.5"/>
+          <path d="M64 76 Q86 48 120 45 Q154 48 176 76 Q154 104 120 107 Q86 104 64 76Z" fill="#0d2044" stroke="#2563c4" stroke-width="0.8"/>
+          <path d="M78 62 Q98 50 120 49 Q142 50 162 62" fill="none" stroke="#3b7de9" stroke-width="1.2"/>
+          <path d="M72 76 Q94 65 120 64 Q146 65 168 76" fill="none" stroke="#4a90f5" stroke-width="1"/>
+          <path d="M78 90 Q98 102 120 103 Q142 102 162 90" fill="none" stroke="#3b7de9" stroke-width="1.2"/>
+          <circle cx="102" cy="58" r="7" fill="#1e3d7a" stroke="#4a90f5" stroke-width="0.8"/>
+          <circle cx="138" cy="58" r="7" fill="#1e3d7a" stroke="#4a90f5" stroke-width="0.8"/>
+          <circle cx="94" cy="76" r="5" fill="#2a52a0" stroke="#6aaaf8" stroke-width="0.6"/>
+          <circle cx="146" cy="76" r="5" fill="#2a52a0" stroke="#6aaaf8" stroke-width="0.6"/>
+          <circle cx="120" cy="68" r="9" fill="#142d5e" stroke="#7ab5ff" stroke-width="1"/>
+          <text x="120" y="134" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a90f5">in-browser 3D MRI segmentation</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <div class="project-tag">web app · segmentation</div>
+        <div class="project-title"><a href="https://brainchop.org" target="_blank">brainchop</a></div>
+        <div class="project-desc">In-browser 3D MRI rendering and segmentation powered by deep learning. No server, no install — runs entirely client-side. Also available as a portable CLI via tinygrad.</div>
+        <div class="project-links">
+          <a href="https://brainchop.org" target="_blank">brainchop.org</a>
+          <a href="https://pypi.org/project/brainchop/" target="_blank">pypi</a>
+          <a href="https://github.com/neuroneural/brainchop" target="_blank">github</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PROJECT 2 — wirehead
+    ════════════════════════════════════════════════════ -->
+    <div class="project">
+      <div class="project-thumb">
+        <img src="https://github.com/neuroneural/wirehead/raw/main/assets/training-diagram.png" alt="wirehead">
+          <rect width="240" height="152" fill="#0a0a1a"/>
+          <rect width="240" height="152" fill="#0d1a0d"/>
+          <rect x="16" y="28" width="42" height="22" rx="3" fill="#0a2a0a" stroke="#1a6b1a" stroke-width="0.8"/>
+          <rect x="16" y="58" width="42" height="22" rx="3" fill="#0a2a0a" stroke="#1a6b1a" stroke-width="0.8"/>
+          <rect x="16" y="88" width="42" height="22" rx="3" fill="#0a2a0a" stroke="#1a6b1a" stroke-width="0.8"/>
+          <rect x="95" y="18" width="42" height="22" rx="3" fill="#122a06" stroke="#3a8c1a" stroke-width="0.8"/>
+          <rect x="95" y="50" width="42" height="22" rx="3" fill="#122a06" stroke="#3a8c1a" stroke-width="0.8"/>
+          <rect x="95" y="82" width="42" height="22" rx="3" fill="#122a06" stroke="#3a8c1a" stroke-width="0.8"/>
+          <rect x="95" y="114" width="42" height="18" rx="3" fill="#122a06" stroke="#3a8c1a" stroke-width="0.8"/>
+          <rect x="170" y="48" width="52" height="52" rx="4" fill="#0d2a1a" stroke="#1d9e75" stroke-width="1"/>
+          <path d="M58 39 L95 29" stroke="#2d7a12" stroke-width="0.8"/>
+          <path d="M58 69 L95 61" stroke="#2d7a12" stroke-width="0.8"/>
+          <path d="M58 69 L95 29" stroke="#2d7a12" stroke-width="0.4"/>
+          <path d="M58 99 L95 93" stroke="#2d7a12" stroke-width="0.8"/>
+          <path d="M58 99 L95 125" stroke="#2d7a12" stroke-width="0.8"/>
+          <path d="M137 29 L170 65" stroke="#2d7a12" stroke-width="0.8"/>
+          <path d="M137 61 L170 74" stroke="#2d7a12" stroke-width="0.8"/>
+          <path d="M137 93 L170 84" stroke="#2d7a12" stroke-width="0.8"/>
+          <text x="37" y="42" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#3db81a">gen×4</text>
+          <text x="116" y="32" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#5cd43a">mongo</text>
+          <text x="196" y="77" text-anchor="middle" font-family="monospace" font-size="7" fill="#1d9e75">train</text>
+          <text x="120" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#3db81a">15.7× throughput speedup</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <div class="project-tag">python · distributed pipeline</div>
+        <div class="project-title"><a href="https://pypi.org/project/wirehead/" target="_blank">wirehead</a></div>
+        <div class="project-desc">Scalable in-memory pipeline for synthetic brain data generation. Decouples generation from training using parallel generators and MongoDB, achieving near-linear throughput gains — cutting 7-day training runs to 9 hours.</div>
+        <div class="project-links">
+          <a href="https://pypi.org/project/wirehead/" target="_blank">pypi</a>
+          <a href="https://github.com/neuroneural/wirehead" target="_blank">github</a>
+          <a href="https://trendscenter.org/scaling-synthetic-data-generation-with-wirehead/" target="_blank">blog</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PROJECT 3 — mindfultensors
+    ════════════════════════════════════════════════════ -->
+    <div class="project">
+      <div class="project-thumb">
+        <img src="https://pypi-camo.freetls.fastly.net/93399c986308e99f49ef660c3d7be43c10989531/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f37633437303637633735663537343036656138336232316264626236353465363f73697a653d323235" alt="mindfultensors">
+          <rect width="240" height="152" fill="#0d0d1a"/>
+          <rect x="12" y="16" width="216" height="120" rx="4" fill="#0a0a22" stroke="#2a2a5a" stroke-width="0.5"/>
+          <rect x="20" y="26" width="96" height="60" rx="2" fill="#0d1a33"/>
+          <rect x="20" y="94" width="96" height="32" rx="2" fill="#0d1a33"/>
+          <rect x="124" y="26" width="96" height="100" rx="2" fill="#0d1a33"/>
+          <rect x="24" y="30" width="88" height="9" rx="1" fill="#1a2a4a"/>
+          <rect x="24" y="43" width="66" height="7" rx="1" fill="#1a2a44"/>
+          <rect x="24" y="53" width="76" height="7" rx="1" fill="#1a2a44"/>
+          <rect x="24" y="63" width="55" height="7" rx="1" fill="#1a2a44"/>
+          <rect x="24" y="73" width="70" height="7" rx="1" fill="#1a2a44"/>
+          <rect x="128" y="30" width="88" height="12" rx="1" fill="#1a3a5a"/>
+          <rect x="128" y="48" width="36" height="22" rx="1" fill="#0e2a48"/>
+          <rect x="170" y="48" width="36" height="22" rx="1" fill="#0e2a48"/>
+          <rect x="128" y="76" width="36" height="22" rx="1" fill="#0e2a48"/>
+          <rect x="170" y="76" width="36" height="22" rx="1" fill="#0e2a48"/>
+          <text x="146" y="62" text-anchor="middle" font-family="monospace" font-size="7" fill="#4a90f5">16MB</text>
+          <text x="188" y="62" text-anchor="middle" font-family="monospace" font-size="7" fill="#5aa0f5">chunk</text>
+          <text x="146" y="90" text-anchor="middle" font-family="monospace" font-size="7" fill="#4a90f5">104</text>
+          <text x="188" y="90" text-anchor="middle" font-family="monospace" font-size="7" fill="#5aa0f5">ROIs</text>
+          <rect x="24" y="98" width="28" height="9" rx="1" fill="#1d9e75" opacity="0.6"/>
+          <rect x="58" y="98" width="28" height="9" rx="1" fill="#534AB7" opacity="0.6"/>
+          <rect x="92" y="98" width="20" height="9" rx="1" fill="#D85A30" opacity="0.5"/>
+          <text x="120" y="140" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a90f5">fMRI → MongoDB → GPU</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <div class="project-tag">python · dataloader</div>
+        <div class="project-title"><a href="https://pypi.org/project/mindfultensors/" target="_blank">mindfultensors</a></div>
+        <div class="project-desc">Dataloader that serves MRI images and segmentation labels from MongoDB and Redis. Handles chunked storage of 16MB tensors across records, with support for 104-region atlases and GPU-ready batching.</div>
+        <div class="project-links">
+          <a href="https://pypi.org/project/mindfultensors/" target="_blank">pypi</a>
+          <a href="https://github.com/neuroneural/mindfultensors" target="_blank">github</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PROJECT 4 — polyssifier
+    ════════════════════════════════════════════════════ -->
+    <div class="project">
+      <div class="project-thumb">
+        <img src="https://pypi-camo.freetls.fastly.net/93399c986308e99f49ef660c3d7be43c10989531/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f37633437303637633735663537343036656138336232316264626236353465363f73697a653d323235" alt="polyssifier">
+          <rect width="240" height="152" fill="#0d0d0d"/>
+          <line x1="22" y1="122" x2="218" y2="122" stroke="#2a2a2a" stroke-width="0.8"/>
+          <line x1="22" y1="20" x2="22" y2="122" stroke="#2a2a2a" stroke-width="0.8"/>
+          <line x1="22" y1="100" x2="218" y2="100" stroke="#1a1a1a" stroke-width="0.5"/>
+          <line x1="22" y1="78" x2="218" y2="78" stroke="#1a1a1a" stroke-width="0.5"/>
+          <line x1="22" y1="56" x2="218" y2="56" stroke="#1a1a1a" stroke-width="0.5"/>
+          <line x1="22" y1="34" x2="218" y2="34" stroke="#1a1a1a" stroke-width="0.5"/>
+          <rect x="30" y="60" width="16" height="62" fill="#534AB7" opacity="0.85"/>
+          <rect x="54" y="46" width="16" height="76" fill="#1d9e75" opacity="0.85"/>
+          <rect x="78" y="53" width="16" height="69" fill="#D85A30" opacity="0.75"/>
+          <rect x="102" y="65" width="16" height="57" fill="#BA7517" opacity="0.8"/>
+          <rect x="126" y="72" width="16" height="50" fill="#185FA5" opacity="0.8"/>
+          <rect x="150" y="80" width="16" height="42" fill="#993556" opacity="0.8"/>
+          <rect x="174" y="88" width="16" height="34" fill="#639922" opacity="0.8"/>
+          <rect x="198" y="96" width="16" height="26" fill="#888780" opacity="0.7"/>
+          <text x="38" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#888780">SVM</text>
+          <text x="62" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#888780">RF</text>
+          <text x="86" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#888780">LR</text>
+          <text x="110" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#888780">GB</text>
+          <text x="134" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#888780">kNN</text>
+          <text x="158" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#888780">LDA</text>
+          <text x="182" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#888780">NB</text>
+          <text x="206" y="136" text-anchor="middle" font-family="monospace" font-size="6" fill="#888780">DT</text>
+          <text x="16" y="103" text-anchor="end" font-family="monospace" font-size="6" fill="#888780">.7</text>
+          <text x="16" y="81" text-anchor="end" font-family="monospace" font-size="6" fill="#888780">.8</text>
+          <text x="16" y="59" text-anchor="end" font-family="monospace" font-size="6" fill="#888780">.9</text>
+          <text x="16" y="37" text-anchor="end" font-family="monospace" font-size="6" fill="#888780">1.</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <div class="project-tag">python · benchmarking</div>
+        <div class="project-title"><a href="https://pypi.org/project/polyssifier/" target="_blank">polyssifier</a></div>
+        <div class="project-desc">Runs many machine learning classifiers on your data in parallel and produces ranked AUC, F1, and confusion matrix reports. One call benchmarks SVM, Random Forest, LDA, and more — with cross-validation built in.</div>
+        <div class="project-links">
+          <a href="https://pypi.org/project/polyssifier/" target="_blank">pypi</a>
+          <a href="https://github.com/bbradt/polyssifier" target="_blank">github</a>
+          <a href="https://trendscenter.org/software/polyssifier/" target="_blank">trendscenter.org</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PROJECT 5 — brainbow
+    ════════════════════════════════════════════════════ -->
+    <div class="project">
+      <div class="project-thumb">
+        <img src="https://pypi-camo.freetls.fastly.net/44d387f5ec040de89ffcd1a700ea53c47a6471a2/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6e6575726f6e657572616c2f627261696e626f772f6d61696e2f2e6769746875622f696d616765732f312e706e67" alt="brainbow">
+          <rect width="240" height="152" fill="#060610"/>
+          <ellipse cx="120" cy="74" rx="74" ry="54" fill="#080820"/>
+          <ellipse cx="90" cy="62" rx="20" ry="16" fill="#1a0a3a" stroke="#7F77DD" stroke-width="0.8" opacity="0.9"/>
+          <ellipse cx="150" cy="62" rx="20" ry="16" fill="#0a1a3a" stroke="#378ADD" stroke-width="0.8" opacity="0.9"/>
+          <ellipse cx="102" cy="88" rx="18" ry="14" fill="#0a2a1a" stroke="#1d9e75" stroke-width="0.8" opacity="0.9"/>
+          <ellipse cx="138" cy="88" rx="18" ry="14" fill="#2a0a10" stroke="#D85A30" stroke-width="0.8" opacity="0.9"/>
+          <ellipse cx="120" cy="65" rx="14" ry="12" fill="#1a1a0a" stroke="#BA7517" stroke-width="0.8" opacity="0.9"/>
+          <ellipse cx="80" cy="86" rx="12" ry="9" fill="#1a0a20" stroke="#D4537E" stroke-width="0.7" opacity="0.8"/>
+          <ellipse cx="160" cy="84" rx="12" ry="9" fill="#0a2a0a" stroke="#639922" stroke-width="0.7" opacity="0.8"/>
+          <text x="90" y="65" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#AFA9EC">ICA-1</text>
+          <text x="150" y="65" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#85B7EB">ICA-2</text>
+          <text x="102" y="91" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#5DCAA5">ICA-3</text>
+          <text x="138" y="91" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#F0997B">ICA-4</text>
+          <text x="120" y="68" text-anchor="middle" font-family="monospace" font-size="6" fill="#EF9F27">DMN</text>
+          <text x="120" y="140" text-anchor="middle" font-family="monospace" font-size="9" fill="#7F77DD">ICA · ROI parcellation overlay</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <div class="project-tag">python · visualization</div>
+        <div class="project-title"><a href="https://pypi.org/project/brainbow/" target="_blank">brainbow</a></div>
+        <div class="project-desc">Scripts for visualizing ICA and ROI brain parcellations. Renders colorful, publication-ready overlays of independent components and atlas regions on structural MRI.</div>
+        <div class="project-links">
+          <a href="https://pypi.org/project/brainbow/" target="_blank">pypi</a>
+          <a href="https://github.com/neuroneural/brainbow" target="_blank">github</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /projects -->
+
+  <div class="footer">
+    <span><a href="https://trendscenter.org" style="color:inherit;text-decoration:none;">trendscenter.org</a></span>
+    <span>Georgia State · Georgia Tech · Emory</span>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
